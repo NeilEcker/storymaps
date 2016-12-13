@@ -8,7 +8,7 @@ class MapController {
 
     MapService mapService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", saveStageOrder: "POST", update: "PUT", delete: "DELETE"]
 
     def index() {
         respond Map.list(params)
@@ -113,6 +113,17 @@ class MapController {
             }
             '*'{ render status: NO_CONTENT }
         }
+    }
+
+    @Transactional
+    def saveStageOrder() {
+        def order = Eval.me(params.order)
+        order.eachWithIndex { stageId, idx ->
+            def stage = Stage.get(stageId)
+            stage.sortOrder = idx
+            stage.save(failOnError: true)
+        }
+        render "Order Saved"
     }
 
     protected void notFound() {

@@ -42,7 +42,7 @@
                             <label for="layer">Layer</label>
                             <g:select id="layer" name='layer'
                                       noSelection="${['null':'Select One...']}"
-                                      from='${layers}'
+                                      from='${layers}' value="${map.layer?.id}"
                                       optionKey="id" optionValue="name" class="form-control" ></g:select>
                         </div>
                         <div class="form-group">
@@ -82,13 +82,21 @@
             var locationPicker = L.map('locationPicker').setView([44.0, -81], 6);
             var marker = L.marker([44.0, -81]).addTo(locationPicker);
 
-            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
-                maxZoom: 18,
-                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-                '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-                id: 'mapbox.streets'
-            }).addTo(locationPicker);
+            //Add tileLayer
+            <g:if test="${map.layer}">
+                L.tileLayer('${map.layer.url}', {
+                attribution: '${map.layer.attribution}'
+                }).addTo(locationPicker);
+            </g:if>
+            <g:else>
+                L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+                    maxZoom: 18,
+                    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+                        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                    id: 'mapbox.streets'
+                }).addTo(locationPicker);
+            </g:else>
 
             var popup = L.popup();
 

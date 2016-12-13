@@ -18,16 +18,20 @@
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <br />
             <div class="row">
                 <div class="col-md-12">
 
-                Stages <small><g:link controller="stage" action="create" params="${[mapId: map.id]}">New Stage</g:link></small>
-                <ul class="sortable">
+                <h3>Stages <small><g:link controller="stage" action="create" params="${[mapId: map.id]}">New Stage</g:link></small></h3>
+
+                <ul id="stagesList" class="sortable">
                     <g:each in="${map.stages.sort { it.sortOrder } }" var="stage">
-                        <li class="list-group-item"><span class="glyphicon glyphicon-move" aria-hidden="true"></span> <g:link controller="stage" action="edit" id="${stage.id}">${stage}</g:link></li>
+                        <li id="${stage.id}" class="list-group-item"><span class="glyphicon glyphicon-move" aria-hidden="true"></span> <g:link controller="stage" action="edit" id="${stage.id}">${stage}</g:link></li>
                     </g:each>
                 </ul>
+
+                    <button id="saveSortButton" class="btn btn-primary">Save Order</button>
+                    <br />
+                    <div id="saveMessage" class="text-success"></div>
 
                 </div>
             </div>
@@ -35,7 +39,33 @@
 
         <g:javascript>
             $(function  () {
-                $("ul.sortable").sortable({ });
+                $("#stagesList").sortable({ });
+            });
+
+            $('#saveSortButton').click(function() {
+                var order = [];
+                $('#stagesList').children('li').each(function(idx, elm) {
+                    order.push(elm.id)
+                });
+
+                //$.get('ajax.php', {action: 'updateOrder', 'order[]': order});
+                //var order = $('#stagesList').sortable('serialize');
+
+                console.log(order);
+
+                $.ajax({
+                    type: "POST",
+                    data: {order: JSON.stringify(order)},
+                    url: "/map/saveStageOrder",
+                    success: function(msg){
+                        $('#saveMessage').text(msg);
+                    },
+                    error: function(error){
+                        console.log(msg);
+                        $('#saveMessage').html("Something went wrong");
+                    }
+                });
+
             });
         </g:javascript>
 

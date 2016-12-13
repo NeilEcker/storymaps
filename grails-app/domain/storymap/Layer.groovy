@@ -10,6 +10,7 @@ class Layer {
     String format
     Integer maxZoom
     Integer minZoom
+    String attribution
 
     static constraints = {
         type inList:['Tile','WMS']
@@ -17,6 +18,7 @@ class Layer {
         format blank:true, nullable:true
         maxZoom blank:true, nullable:true
         minZoom blank:true, nullable:true
+        attribution type: 'text', blank:true, nullable:true
     }
 
     String toString() { layer }
