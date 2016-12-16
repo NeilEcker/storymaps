@@ -31,9 +31,10 @@ class MapController {
 
     def show(Map map) {
         def layers = Layer.list()
-        def coordinates = mapService.getPath(map)
+        def coordinates = mapService.getCoordinates(map)
+        def titles = mapService.getTitles(map)
 
-        respond map, model: [layers: layers, coordinates: coordinates]
+        respond map, model: [layers: layers, coordinates: coordinates, titles: titles]
     }
 
     def create() {

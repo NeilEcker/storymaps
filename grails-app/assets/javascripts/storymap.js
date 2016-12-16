@@ -105,16 +105,24 @@
 
             function showMapView(key) {
 
-                fg.clearLayers();
                 if (key === 'overview') {
+                    fg.clearLayers();
                     setOverview();
                 } else if (markers[key]) {
+                    //If layer is different, remove and add layer
                     var marker = markers[key];
                     var layer = marker.layer;
-                    if(typeof layer !== 'undefined'){
-                      fg.addLayer(layer);
-                    };
-                    fg.addLayer(L.marker([marker.lat, marker.lon]));
+                    if (map.hasLayer(layer)) {
+                    } else {
+                        if(typeof layer !== 'undefined'){
+                          fg.clearLayers();
+                          fg.addLayer(layer);
+                        };
+                    }
+
+                    fg.addLayer(L.marker([marker.lat, marker.lon], {
+                       icon: greenFlag
+                    }));
 
                     map.setView([marker.lat, marker.lon], marker.zoom, 1);
                 }
@@ -126,23 +134,54 @@
             });
         };
 
+        var greenIcon = L.icon({
+            iconUrl: '/assets/leaf-green.png',
+            shadowUrl: '/assets/leaf-shadow.png',
+
+            iconSize:     [38, 95], // size of the icon
+            shadowSize:   [50, 64], // size of the shadow
+            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+            shadowAnchor: [4, 62],  // the same for the shadow
+            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+        });
+
+        var blueFlag = L.icon({
+            iconUrl: '/assets/flag_map_blue.png',
+            iconSize:     [64, 64],
+            iconAnchor:   [32, 64],
+            popupAnchor:  [-3, -76]
+        });
+
+        var greenFlag = L.icon({
+            iconUrl: '/assets/flag_map_green.png',
+            iconSize:     [64, 64],
+            iconAnchor:   [32, 64],
+            popupAnchor:  [-3, -76]
+        });
+
         function setOverview() {
             var marker = markers['overview'];
             var layer = marker.layer;
             map.addLayer(layer);
 
             var coordinates = $("#mainSection").data('coordinates');
+            var titles = $("#mainSection").data('titles').split(",");
 
             //Show path
             L.polyline(coordinates).addTo(map);
 
             for (var i = 0; i < coordinates.length; i++) {
-                var circle = L.circle(coordinates[i], {
-                    color: 'blue',
-                    fillColor: 'blue',
-                    fillOpacity: 0.5,
-                    radius: 500
-                }).addTo(map);
+                var m = L.marker(coordinates[i], {
+                    icon: blueFlag,
+                    alt: titles[i]
+                })
+                m.on('click', function(e) {
+                    var url = location.href;               //Save down the URL without hash.
+                    location.href = "#"+e.target.options.alt;                 //Go to the target element.
+                    history.replaceState(null,null,url);
+                    console.log(e.latlng);
+                });
+                m.addTo(map);
             }
 
             var bounds = L.latLngBounds(coordinates);

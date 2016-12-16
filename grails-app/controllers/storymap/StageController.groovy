@@ -51,6 +51,20 @@ class StageController {
         }
     }
 
+    @Transactional
+    def setMapPhoto(Stage stage) {
+        if (params.photoId) {
+            println params.photoId
+            def map = stage.map
+            map.photoId = params.int('photoId')
+            map.save(flush: true)
+            println map.photoId
+        }
+
+        flash.message = "Set Default Map Photo"
+        redirect action: "addPhotos", id: stage.id
+    }
+
     def edit(Stage stage) {
         respond stage, model: [layers: Layer.list()]
     }

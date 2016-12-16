@@ -5,7 +5,7 @@ import grails.transaction.Transactional
 @Transactional
 class MapService {
 
-    def getPath(Map map) {
+    def getCoordinates(Map map) {
 
         def coordinates = []
 
@@ -14,6 +14,17 @@ class MapService {
         }
 
         return coordinates
+    }
+
+    def getTitles(Map map) {
+
+        //def titles = []
+
+        def titles = map.stages.sort{ it.sortOrder }.collect { stage ->
+            stage.title.replaceAll('\\s','')
+        }.join(',')
+
+        return titles
     }
 
     Photo getPhoto(Map map) {

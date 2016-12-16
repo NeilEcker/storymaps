@@ -27,6 +27,10 @@
                     <label for="photo">Add Photo</label>
                     <g:field type="file" name="photo" id="photo" class="form-control" />
                 </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <g:field type="text" name="description" id="description" class="form-control" />
+                </div>
                 <g:field class="btn btn-default" type="submit" name="photo" value="Upload" />
             </g:uploadForm>
 
@@ -36,6 +40,7 @@
                 <thead>
                     <th>Preview</th>
                     <th>Photo</th>
+                    <th>Description</th>
                     <th>Type</th>
                     <th>Size</th>
                     <th></th>
@@ -45,9 +50,13 @@
                         <tr>
                             <td><g:link controller="photo" action="getWebPhoto" id="${photo.id}"><img src="/photo/getThumbnail/${photo.id}" height="50" /></g:link></td>
                             <td><g:link controller="photo" action="getWebPhoto" id="${photo.id}">${photo.filename}</g:link></td>
+                            <td>${photo.description}</td>
                             <td>${photo.contentType}</td>
                             <td><g:formatNumber number="${photo.size / 1024}" type="number" maxFractionDigits="0" /> kB</td>
-                            <td><g:link class="btn btn-warning" controller="photo" action="delete" id="${photo.id}">Delete</g:link></td>
+                            <td>
+                                <g:link class="btn btn-warning" controller="photo" action="delete" id="${photo.id}">Delete</g:link>
+                                <g:link class="btn btn-info" controller="stage" action="setMapPhoto" id="${stage.id}" params="${[photoId: photo.id]}">Make Map Default</g:link>
+                            </td>
                         </tr>
                     </g:each>
                 </tbody>

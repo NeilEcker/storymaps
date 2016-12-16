@@ -19,7 +19,7 @@
                         <g:link class="btn-link btn-sm" action="stages" id="${map.id}">Stages</g:link>
                     </div>
                     <div class="row">
-                        <section id="mainSection" data-place="overview" data-coordinates="${coordinates}">
+                        <section id="mainSection" data-place="overview" data-titles="${titles}" data-coordinates="${coordinates}">
                             ${raw(map.overview)}
                         </section>
                     </div>
@@ -27,7 +27,7 @@
                     <g:each in="${map.stages.sort { it.sortOrder } }" var="stage">
 
                         <div class="row">
-                            <h2>${stage.title}</h2>
+                            <h2 id="${stage.title.replaceAll('\\s','')}">${stage.title}</h2>
                         </div>
                         <div class="row">
                             <g:link class="btn-link btn-sm" controller="stage" action="edit" id="${stage.id}">Edit</g:link>
@@ -42,7 +42,7 @@
 
                                     <g:each in="${stage.photos}" var="photo">
                                         <div class="col-lg-3 col-md-3 col-xs-6" style="padding-bottom: 10px;">
-                                            <a href="/photo/getWebPhoto/${photo.id}" data-type="image" data-toggle="lightbox" data-gallery="example-gallery">
+                                            <a href="/photo/getWebPhoto/${photo.id}" data-type="image" data-title="${photo.description}" data-toggle="lightbox" data-gallery="example-gallery">
                                                 <img src="/photo/getThumbnail/${photo.id}" class="img-responsive">
                                             </a>
                                         </div>

@@ -17,11 +17,11 @@ class BootStrap {
             <p>In at molestie nulla, at molestie nulla. Donec ut vehicula velit, sed scelerisque sapien. Proin sodales laoreet dapibus. Phasellus in tristique orci. Morbi iaculis vestibulum magna, et fermentum lacus ornare non. Quisque malesuada et dolor ac mollis. Duis egestas ullamcorper dui, vel rhoncus nisl congue ut. Nunc feugiat velit at congue congue. Suspendisse sapien ligula, gravida non rhoncus ut, porta ut ipsum. In urna orci, scelerisque non sem et, condimentum feugiat lorem. Nam nec nunc nisl.</p>
         '''
 
-        def map1 = new Map(title: "Demo Map", latitude: 44.5, longitude: -80.9, zoom: 7, overview: testContent).save(failOnError: true)
-        new Stage(title: "First Stage", latitude: 44, longitude: -80, zoom: 7, content: testContent, sortOrder: 1, map: map1).save(failOnError: true)
-        new Stage(title: "Second Stage", latitude: 45, longitude: -81, zoom: 7, content: testContent, sortOrder: 2, map: map1).save(failOnError: true)
-        new Stage(title: "Third Stage", latitude: 44, longitude: -80.5, zoom: 7, content: testContent, sortOrder: 3, map: map1).save(failOnError: true)
-        new Stage(title: "Fourth Stage", latitude: 44.5, longitude: -80, zoom: 7, content: testContent, sortOrder: 4, map: map1).save(failOnError: true)
+        def map1 = new Map(title: "Demo Map", overview: testContent).save(failOnError: true)
+        new Stage(title: "First Stage", latitude: 44, longitude: -80.5, zoom: 12, content: testContent, sortOrder: 1, map: map1).save(failOnError: true)
+        new Stage(title: "Second Stage", latitude: 44.2, longitude: -80.8, zoom: 12, content: testContent, sortOrder: 2, map: map1).save(failOnError: true)
+        new Stage(title: "Third Stage", latitude: 44.5, longitude: -81, zoom: 12, content: testContent, sortOrder: 3, map: map1).save(failOnError: true)
+        new Stage(title: "Fourth Stage", latitude: 44.7, longitude: -81.1, zoom: 12, content: testContent, sortOrder: 4, map: map1).save(failOnError: true)
     }
 
     def addDefaultLayers() {
