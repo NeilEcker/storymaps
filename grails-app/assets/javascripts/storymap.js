@@ -2,6 +2,7 @@
     'use strict';
 
     var map;
+    var fg;
 
     $.fn.storymap = function(options) {
 
@@ -101,7 +102,7 @@
             var initPoint = map.getCenter();
             var initZoom = map.getZoom();
 
-            var fg = L.featureGroup().addTo(map);
+            fg = L.featureGroup().addTo(map);
             var current = L.featureGroup().addTo(map);
 
             function showMapView(key) {
@@ -113,9 +114,13 @@
                     //If layer is different, remove and add layer
                     var marker = markers[key];
                     var layer = marker.layer;
+
                     if (map.hasLayer(layer)) {
+                        //fg.clearLayers();
+                        //console.log("hasLayer");
                     } else {
                         if(typeof layer !== 'undefined'){
+                            //console.log("Clearing and adding new layer");
                           fg.clearLayers();
                           fg.addLayer(layer);
                         };
@@ -153,7 +158,7 @@
         function setOverview() {
             var marker = markers['overview'];
             var layer = marker.layer;
-            map.addLayer(layer);
+            fg.addLayer(layer);
 
             var coordinates = $("#mainSection").data('coordinates');
             var titles = $("#mainSection").data('titles').split(",");
@@ -179,6 +184,7 @@
         }
 
         makeStoryMap(this, settings.markers);
+
         setOverview();
 
         return this;

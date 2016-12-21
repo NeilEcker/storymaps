@@ -29,7 +29,7 @@
             <div class="row">
                 <g:each in="${stage.photos}" var="photo">
                     <g:link controller="photo" action="getPhoto" id="${photo.id}">
-                        <img src="/photo/getPhoto/${photo.id}" height="50" />
+                        <img src="/photo/getThumbnail/${photo.id}" height="50" />
                     </g:link>
                 </g:each>
             </div>
