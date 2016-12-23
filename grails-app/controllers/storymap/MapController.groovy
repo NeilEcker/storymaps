@@ -2,16 +2,24 @@ package storymap
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import grails.plugin.springsecurity.annotation.Secured
 
+@Secured(['ROLE_USER'])
 @Transactional(readOnly = true)
 class MapController {
 
     MapService mapService
+    def springSecurityService
 
     static allowedMethods = [save: "POST", saveStageOrder: "POST", update: "PUT", delete: "DELETE"]
 
+    @Secured(['permitAll'])
     def index() {
-        respond Map.list(params)
+        def mapList = Map.where {
+            isPublic == true || creator == springSecurityService.currentUser
+        }
+
+        model: [mapList: mapList]
     }
 
     def stages(Map map) {
@@ -29,12 +37,22 @@ class MapController {
         photo = photos.size() ? photos.first() : null
     }
 
+    @Secured(['permitAll'])
     def show(Map map) {
-        def layers = Layer.list()
-        def coordinates = mapService.getCoordinates(map)
-        def titles = mapService.getTitles(map)
 
-        respond map, model: [layers: layers, coordinates: coordinates, titles: titles]
+        if (mapService.canView(map)) {
+            def layers = Layer.list()
+            def coordinates = mapService.getCoordinates(map)
+            def titles = mapService.getTitles(map)
+
+            def isCreator = mapService.canEdit(map)
+
+            respond map, model: [layers: layers, coordinates: coordinates, titles: titles, isCreator: isCreator]
+        } else {
+            flash.message = "Map does not exist or you do not have permission to view."
+            redirect action: "index"
+        }
+
     }
 
     def create() {
@@ -43,6 +61,9 @@ class MapController {
 
     @Transactional
     def save(Map map) {
+
+        //map.creator = springSecurityService.authentication.principal
+        map.creator = springSecurityService.currentUser
 
         if (map == null) {
             transactionStatus.setRollbackOnly()
@@ -68,51 +89,69 @@ class MapController {
     }
 
     def edit(Map map) {
-        respond map, model: [layers: Layer.list()]
+        if (mapService.canEdit(map)) {
+            respond map, model: [layers: Layer.list()]
+        } else {
+            flash.message = "Map does not exist or you do not have permission to edit."
+            redirect action: "index"
+        }
     }
 
     @Transactional
     def update(Map map) {
-        if (map == null) {
-            transactionStatus.setRollbackOnly()
-            notFound()
-            return
-        }
 
-        if (map.hasErrors()) {
-            transactionStatus.setRollbackOnly()
-            respond map.errors, view:'edit'
-            return
-        }
-
-        map.save flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'map.label', default: 'Map'), map.id])
-                redirect map
+        if (mapService.canEdit(map)) {
+            if (map == null) {
+                transactionStatus.setRollbackOnly()
+                notFound()
+                return
             }
-            '*'{ respond map, [status: OK] }
+
+            if (map.hasErrors()) {
+                transactionStatus.setRollbackOnly()
+                respond map.errors, view:'edit'
+                return
+            }
+
+            map.save flush:true
+
+            request.withFormat {
+                form multipartForm {
+                    flash.message = message(code: 'default.updated.message', args: [message(code: 'map.label', default: 'Map'), map.id])
+                    redirect map
+                }
+                '*'{ respond map, [status: OK] }
+            }
+        } else {
+            flash.message = "Map does not exist or you do not have permission to edit."
+            redirect action: "index"
         }
+
     }
 
     @Transactional
     def delete(Map map) {
 
-        if (map == null) {
-            transactionStatus.setRollbackOnly()
-            notFound()
-            return
-        }
+        if (mapService.canEdit(map)) {
 
-        map.delete flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'map.label', default: 'Map'), map.id])
-                redirect action:"index", method:"GET"
+            if (map == null) {
+                transactionStatus.setRollbackOnly()
+                notFound()
+                return
             }
-            '*'{ render status: NO_CONTENT }
+
+            map.delete flush: true
+
+            request.withFormat {
+                form multipartForm {
+                    flash.message = message(code: 'default.deleted.message', args: [message(code: 'map.label', default: 'Map'), map.id])
+                    redirect action: "index", method: "GET"
+                }
+                '*' { render status: NO_CONTENT }
+            }
+        } else {
+            flash.message = "Map does not exist or you do not have permission to edit."
+            redirect action: "index"
         }
     }
 

@@ -14,10 +14,12 @@
                     <div class="row">
                         <h1 class="page-header">${map.title}</h1>
                     </div>
-                    <div class="row">
-                        <g:link class="btn-link btn-sm" action="edit" id="${map.id}">Edit</g:link>
-                        <g:link class="btn-link btn-sm" action="stages" id="${map.id}">Stages</g:link>
-                    </div>
+                    <g:if test="${isCreator}">
+                        <div class="row">
+                            <g:link class="btn-link btn-sm" action="edit" id="${map.id}">Edit</g:link>
+                            <g:link class="btn-link btn-sm" action="stages" id="${map.id}">Stages</g:link>
+                        </div>
+                    </g:if>
                     <div class="row">
                         <section id="mainSection" data-place="overview" data-titles="${titles}" data-coordinates="${coordinates}">
                             ${raw(map.overview)}
@@ -29,10 +31,12 @@
                         <div class="row">
                             <h2 id="${stage.title.replaceAll('\\s','')}">${stage.title}</h2>
                         </div>
-                        <div class="row">
-                            <g:link class="btn-link btn-sm" controller="stage" action="edit" id="${stage.id}">Edit</g:link>
-                            <g:link class="btn-link btn-sm" controller="stage" action="addPhotos" id="${stage.id}">Add Photos</g:link>
-                        </div>
+                        <g:if test="${isCreator}">
+                            <div class="row">
+                                <g:link class="btn-link btn-sm" controller="stage" action="edit" id="${stage.id}">Edit</g:link>
+                                <g:link class="btn-link btn-sm" controller="stage" action="addPhotos" id="${stage.id}">Add Photos</g:link>
+                            </div>
+                        </g:if>
                         <div class="row">
                             <section data-place="${stage.title.replaceAll('\\s','')}">
 

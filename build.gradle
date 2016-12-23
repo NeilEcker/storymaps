@@ -54,6 +54,10 @@ dependencies {
     compile 'org.webjars:jquery-sortable:0.9.13'
     compile "org.grails.plugins:ckeditor:4.5.9.0"
 
+    compile 'org.grails.plugins:spring-security-core:3.1.+'
+    compile 'org.grails.plugins:spring-security-oauth2:1.+'
+    compile 'org.grails.plugins:spring-security-oauth2-google:1.1.+'
+
     compile "org.imgscalr:imgscalr-lib:4.2"
 
     console "org.grails:grails-console"

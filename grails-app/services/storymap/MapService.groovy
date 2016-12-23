@@ -5,6 +5,16 @@ import grails.transaction.Transactional
 @Transactional
 class MapService {
 
+    def springSecurityService
+
+    def canView(Map map) {
+        map.creator == springSecurityService.currentUser || map.isPublic == true
+    }
+
+    def canEdit(Map map) {
+        map.creator == springSecurityService.currentUser
+    }
+
     def getCoordinates(Map map) {
 
         def coordinates = []

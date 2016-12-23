@@ -4,6 +4,13 @@ class BootStrap {
 
     def init = { servletContext ->
 
+        def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
+        def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
+
+        /*def admin = new UserAccount(username: "neil.ecker@gmail.com", password: "sw!ssCh33se", enabled: true).save(flush:true)
+        new UserRole(userAccount: admin, role: adminRole).save(flush:true)
+        new UserRole(userAccount: admin, role: userRole).save(flush:true)*/
+
         if (Map.list().size == 0) {
             addDefaultLayers()
             addDemoData()
@@ -17,7 +24,7 @@ class BootStrap {
             <p>In at molestie nulla, at molestie nulla. Donec ut vehicula velit, sed scelerisque sapien. Proin sodales laoreet dapibus. Phasellus in tristique orci. Morbi iaculis vestibulum magna, et fermentum lacus ornare non. Quisque malesuada et dolor ac mollis. Duis egestas ullamcorper dui, vel rhoncus nisl congue ut. Nunc feugiat velit at congue congue. Suspendisse sapien ligula, gravida non rhoncus ut, porta ut ipsum. In urna orci, scelerisque non sem et, condimentum feugiat lorem. Nam nec nunc nisl.</p>
         '''
 
-        def map1 = new Map(title: "Demo Map", overview: testContent).save(failOnError: true)
+        def map1 = new Map(title: "Demo Map", overview: testContent, isPublic: true).save(failOnError: true)
         new Stage(title: "First Stage", latitude: 44, longitude: -80.5, zoom: 12, content: testContent, sortOrder: 1, map: map1).save(failOnError: true)
         new Stage(title: "Second Stage", latitude: 44.2, longitude: -80.8, zoom: 12, content: testContent, sortOrder: 2, map: map1).save(failOnError: true)
         new Stage(title: "Third Stage", latitude: 44.5, longitude: -81, zoom: 12, content: testContent, sortOrder: 3, map: map1).save(failOnError: true)
@@ -47,7 +54,7 @@ class BootStrap {
 
         new Layer(name: "ESRI World Imagery", type: 'Tile', url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
                 maxZoom: 16, minZoom: 1, format: "image/png", tiled: true,
-                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS UserAccount Community'
         ).save(failOnError: true)
 
         new Layer(name: "ESRI National Geographic", type: 'Tile', url: "https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}",

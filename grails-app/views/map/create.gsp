@@ -37,6 +37,10 @@
                                       from='${layers}'
                                       optionKey="id" optionValue="name" class="form-control" ></g:select>
                         </div>
+                        <div class="form-group">
+                            <label for="isPublic">Public</label>
+                            <g:checkBox id="isPublic" name="isPublic" value="false" />
+                        </div>
                     </div>
                 </div>
 

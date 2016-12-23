@@ -42,6 +42,14 @@
                                           from='${layers}'
                                           optionKey="id" optionValue="name" class="form-control" ></g:select>
                             </div>
+                            <div class="form-group">
+                                <label for="isPublic">Public</label>
+                                <g:checkBox id="isPublic" name="isPublic" value="${map.isPublic}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="creator">Creator</label>
+                                ${map.creator?.username}
+                            </div>
                             <g:if test="${map.photoId}">
                                 <div class="form-group">
                                     <label for="currentPhoto">Current photo</label>

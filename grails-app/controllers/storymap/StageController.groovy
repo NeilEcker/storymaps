@@ -2,7 +2,9 @@ package storymap
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import grails.plugin.springsecurity.annotation.Secured
 
+@Secured(['ROLE_USER'])
 @Transactional(readOnly = true)
 class StageController {
 
@@ -44,7 +46,7 @@ class StageController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'stage.label', default: 'Stage'), stage.id])
+                flash.message = message(code: 'default.created.message', args: [message(code: 'stage.label', default: 'Stage'), stage.title])
                 redirect stage
             }
             '*' { respond stage, [status: CREATED] }

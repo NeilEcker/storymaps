@@ -1,13 +1,12 @@
 package storymap
 
-import org.apache.catalina.connector.ClientAbortException
-import org.grails.web.servlet.mvc.GrailsWebRequest
-import org.grails.web.util.GrailsApplicationAttributes
 import org.springframework.web.multipart.MultipartFile
 
+import grails.plugin.springsecurity.annotation.Secured
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+@Secured(['ROLE_USER'])
 @Transactional(readOnly = true)
 class PhotoController {
 

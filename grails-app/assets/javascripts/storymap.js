@@ -181,6 +181,9 @@
 
             var bounds = L.latLngBounds(coordinates);
             map.fitBounds(bounds);
+            if (map.getZoom() > 14) {
+                map.setZoom(14);
+            }
         }
 
         makeStoryMap(this, settings.markers);

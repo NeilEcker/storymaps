@@ -51,6 +51,18 @@
                             <li><g:link controller="layer" action="create">Create</g:link></li>
                         </ul>
                     </li>
+
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <sec:ifNotLoggedIn>
+                            <g:link controller="storymapOAuth2" action="login">Login</g:link>
+                        </sec:ifNotLoggedIn>
+                        <sec:ifLoggedIn>
+                            <g:link href="#"><sec:loggedInUserInfo field='username'/></g:link>
+                        </sec:ifLoggedIn>
+                    </li>
                 </ul>
 
                 <!--<ul class="nav navbar-nav navbar-right">
