@@ -154,18 +154,21 @@ class PhotoController {
         }
     }
 
+    @Secured(['permitAll'])
     def getPhoto() {
         def photo = Photo.get(params.id)
         render ( file: photo.photo, contentType: photo.contentType, fileName: photo.filename)
 
     }
 
+    @Secured(['permitAll'])
     def getThumbnail() {
         def photo = Photo.get(params.id)
         render ( file: photo.thumbnail, contentType: photo.contentType, fileName: photo.filename)
 
     }
 
+    @Secured(['permitAll'])
     def getWebPhoto() {
         def photo = Photo.get(params.id)
         render ( file: photo.webPhoto, contentType: photo.contentType, fileName: photo.filename)

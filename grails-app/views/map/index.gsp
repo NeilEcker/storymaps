@@ -26,6 +26,12 @@
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading">${map.title}</h4>
+                        <g:if test="${map.isPublic}">
+                            <span class="label label-primary">Public</span>
+                        </g:if>
+                        <g:else>
+                            <span class="label label-info">Private</span>
+                        </g:else><br /><br />
                         ${raw(map.overview)}
                     </div>
                 </div>
