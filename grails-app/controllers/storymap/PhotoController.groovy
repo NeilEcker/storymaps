@@ -67,7 +67,7 @@ class PhotoController {
             //Get Stage
             Stage stage = Stage.get(params.stageId)
             stage.photos.add(photo)
-            stage.save()
+            stage.save(flush: true)
             flash.message = "Added Photo"
             redirect controller:"stage", action:"addPhotos", id: params.stageId
         }
@@ -76,7 +76,7 @@ class PhotoController {
             Map map= Map.get(params.mapId)
             //photo.stage = stage
             map.photo = photo
-            map.save()
+            map.save(flush: true)
             flash.message = "Set Map Photo"
             redirect controller:"map", action:"edit", id: params.mapId
         }

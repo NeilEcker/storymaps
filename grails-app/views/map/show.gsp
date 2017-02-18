@@ -16,8 +16,9 @@
                     </div>
                     <g:if test="${isCreator}">
                         <div class="row">
-                            <g:link class="btn-link btn-sm" action="edit" id="${map.id}">Edit</g:link>
-                            <g:link class="btn-link btn-sm" action="stages" id="${map.id}">Stages</g:link>
+                            <g:link class="label label-primary" action="edit" id="${map.id}">Edit</g:link>
+                            <g:link class="label label-default" action="stages" id="${map.id}">Stages</g:link>
+                            <br /><br />
                         </div>
                     </g:if>
                     <div class="row">
@@ -30,13 +31,13 @@
 
                         <div class="row">
                             <h2 id="${stage.title.replaceAll('\\s','')}">${stage.title}</h2>
+                            <g:if test="${isCreator}">
+                                <g:link class="label label-primary" controller="stage" action="edit" id="${stage.id}">Edit</g:link>
+                                <g:link class="label label-default" controller="stage" action="addPhotos" id="${stage.id}">Add Photos</g:link>
+                                <br /><br />
+                            </g:if>
                         </div>
-                        <g:if test="${isCreator}">
-                            <div class="row">
-                                <g:link class="btn-link btn-sm" controller="stage" action="edit" id="${stage.id}">Edit</g:link>
-                                <g:link class="btn-link btn-sm" controller="stage" action="addPhotos" id="${stage.id}">Add Photos</g:link>
-                            </div>
-                        </g:if>
+
                         <div class="row">
                             <section data-place="${stage.title.replaceAll('\\s','')}">
 

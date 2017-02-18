@@ -11,11 +11,23 @@
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${layerList}" class="table"/>
 
-            <div class="pagination">
-                <g:paginate total="${layerCount ?: 0}" />
-            </div>
+            <table class="table">
+                <thead>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Attribution</th>
+                </thead>
+                <tbody>
+                    <g:each in="${layerList}" var="${layer}">
+                        <tr>
+                            <td><g:link action="show" id="${layer.id}">${layer.name}</g:link></td>
+                            <td>${layer.type}</td>
+                            <td>${raw(layer.attribution)}</td>
+                        </tr>
+                    </g:each>
+                </tbody>
+            </table>
         </div>
     </body>
 </html>

@@ -30,8 +30,6 @@ class StorymapOAuth2Controller extends SpringSecurityOAuth2Controller {
                 def googleResource = googleOAuth2Service.getResponse(oAuth2SpringToken.accessToken)
                 def googleResponse = JSON.parse(googleResource.getBody())
 
-                println googleResponse
-
                 //userAccount.firstName = googleResponse.name
                 user.username = oAuth2SpringToken.email
                 user.password = 'sw!ssCh33se'

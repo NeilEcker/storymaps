@@ -5,7 +5,7 @@
 @media (min-width: 768px) {
     .sidebar {
         position: fixed;
-        top: 0;
+        top: 63px;
         bottom: 0;
         right: 0;
         z-index: 1000;
