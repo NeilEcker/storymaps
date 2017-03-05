@@ -7,7 +7,7 @@
     </head>
     <body>
 
-        <div id="stages" class="container">
+        <div id="stages" class="container-fluid">
 
             <ol class="breadcrumb">
                 <li><g:link controller="map" action="index">Map List</g:link></li>
@@ -16,19 +16,35 @@
             </ol>
 
             <g:if test="${flash.message}">
-            <div class="message" role="status">${flash.message}</div>
+                <div class="alert alert-danger" role="alert">${flash.message}</div>
             </g:if>
+
             <div class="row">
                 <div class="col-md-12">
 
-                <h3>Stages <small><g:link controller="stage" action="create" params="${[mapId: map.id]}">New Stage</g:link></small></h3>
-
                 <ul id="stagesList" class="sortable">
                     <g:each in="${map.stages.sort { it.sortOrder } }" var="stage">
-                        <li id="${stage.id}" class="list-group-item"><span class="glyphicon glyphicon-move" aria-hidden="true"></span> <g:link controller="stage" action="edit" id="${stage.id}">${stage}</g:link></li>
+                        <li id="${stage.id}" class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <g:link controller="stage" action="edit" id="${stage.id}">${stage}</g:link>
+                                </div>
+                                 <div class="col-md-3">
+                                     <g:link class="btn btn-primary btn-sm" controller="stage" action="edit" id="${stage.id}">Edit</g:link>
+                                     <g:form resource="${stage}" method="DELETE">
+                                         <input class="btn btn-warning btn-sm" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+                                     </g:form>
+                                 </div>
+                            </div>
+                        </li>
                     </g:each>
                 </ul>
 
+                    <p>Drag rows to reorder</p>
+                    <g:link class="btn btn-default" action="createStage" id="${map.id}">Create New Stage</g:link>
                     <button id="saveSortButton" class="btn btn-primary">Save Order</button>
                     <br />
                     <div id="saveMessage" class="text-success"></div>

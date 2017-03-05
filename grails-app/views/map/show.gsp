@@ -9,58 +9,68 @@
         <div class="container-fluid">
             <div class="row">
 
-                <div class="col-sm-9 col-md-7 main">
+                <div class="col-sm-8 col-md-6 main">
 
-                    <div class="row">
-                        <h1 class="page-header">${map.title}</h1>
-                    </div>
-                    <g:if test="${isCreator}">
-                        <div class="row">
-                            <g:link class="label label-primary" action="edit" id="${map.id}">Edit</g:link>
-                            <g:link class="label label-default" action="stages" id="${map.id}">Stages</g:link>
-                            <br /><br />
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="pull-left">${map.title}</h4>
+                            <g:if test="${isCreator}">
+                                <div class="dropdown pull-right">
+                                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="editMap" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Settings <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><g:link action="edit" id="${map.id}">Edit</g:link></li>
+                                        <li><g:link action="stages" id="${map.id}">Stages</g:link></li>
+                                        <li><g:link action="newStage" id="${map.id}">Stages</g:link></li>
+                                    </ul>
+                                </div>
+                            </g:if>
+                            <div class="clearfix"></div>
                         </div>
-                    </g:if>
-                    <div class="row">
-                        <section id="mainSection" data-place="overview" data-titles="${titles}" data-coordinates="${coordinates}">
-                            ${raw(map.overview)}
-                        </section>
+                        <div class="panel-body">
+                            <section id="mainSection" data-place="overview" data-titles="${titles}" data-coordinates="${coordinates}">
+                                ${raw(map.overview)}
+                            </section>
+                        </div>
                     </div>
 
                     <g:each in="${map.stages.sort { it.sortOrder } }" var="stage">
 
-                        <div class="row">
-                            <h2 id="${stage.title.replaceAll('\\s','')}">${stage.title}</h2>
-                            <g:if test="${isCreator}">
-                                <g:link class="label label-primary" controller="stage" action="edit" id="${stage.id}">Edit</g:link>
-                                <g:link class="label label-default" controller="stage" action="addPhotos" id="${stage.id}">Add Photos</g:link>
-                                <br /><br />
-                            </g:if>
-                        </div>
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h4 class="pull-left" id="${stage.title.replaceAll('\\s','')}">${stage.title}</h4>
+                                <g:if test="${isCreator}">
+                                    <g:link controller="stage" action="edit" class="btn btn-default btn-sm pull-right" id="${stage.id}">
+                                        <span class="glyphicon glyphicon-cog"></span>
+                                    </g:link>
+                                </g:if>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="panel-body">
+                                <section data-place="${stage.title.replaceAll('\\s','')}">
 
-                        <div class="row">
-                            <section data-place="${stage.title.replaceAll('\\s','')}">
+                                    ${raw(stage.content)}
 
-                                ${raw(stage.content)}
+                                    <div class="row">
 
-                                <div class="row">
-
-                                    <g:each in="${stage.photos}" var="photo">
-                                        <div class="col-lg-3 col-md-3 col-xs-6" style="padding-bottom: 10px;">
-                                            <a href="/photo/getWebPhoto/${photo.id}" data-type="image" data-title="${photo.description}" data-toggle="lightbox" data-gallery="example-gallery">
-                                                <img src="/photo/getThumbnail/${photo.id}" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </g:each>
-                                </div>
-                            </section>
+                                        <g:each in="${stage.photos}" var="photo">
+                                            <div class="col-lg-3 col-md-4 col-xs-6 no-padding">
+                                                <a href="/photo/getWebPhoto/${photo.id}" data-type="image" data-title="${photo.description}" data-toggle="lightbox" data-gallery="example-gallery">
+                                                    <img src="/photo/getThumbnail/${photo.id}" class="img-responsive center-block">
+                                                </a>
+                                            </div>
+                                        </g:each>
+                                    </div>
+                                </section>
+                            </div>
                         </div>
 
                     </g:each>
 
                 </div>
 
-                <div id="map" class="col-sm-3 col-md-5 sidebar"></div>
+                <div id="map" class="col-sm-4 col-md-6 sidebar"></div>
 
             </div>
         </div>
@@ -73,19 +83,6 @@
                 });
             });
 
-            // WMS layers
-            /*var layers = {
-                'test' : L.tileLayer.wms('http://limes.grid.unep.ch/geoserver/wms?', {
-                layers: 'limes:Balkash_173_20140830_LC8_NDVI',
-                tiled: true,
-                format: 'image/png',
-                transparent: true,
-                maxZoom: 14,
-                minZoom: 0,
-                continuousWorld: true
-                })
-            };*/
-
             var layers = {
             <g:each in="${layers}" var="layer">
                 '${layer.name}' : L.tileLayer('${layer.url}', {
@@ -97,13 +94,11 @@
             var markers = {
                 'overview': {layer:layers['${map.layer?.name ?: "OpenStreetMap"}']},
                 <g:each in="${map.stages}" var="stage">
-                    ${stage.title.replaceAll("\\s","")}: {lat: ${stage.latitude}, lon: ${stage.longitude}, zoom: ${stage.zoom}, layer:layers['${stage.layer?.name ?: "OpenStreetMap"}']},
+                    ${stage.title.replaceAll("\\s","")}: {lat: ${stage.latitude}, lon: ${stage.longitude}, zoom: ${stage.zoom}, layer:layers['${map.layer?.name ?: "OpenStreetMap"}']},
                 </g:each>
             };
 
             $('.main').storymap({markers: markers});
-
-            /*$('#mainSection').trigger('viewing');*/
 
         </g:javascript>
     </body>

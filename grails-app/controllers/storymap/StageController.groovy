@@ -66,7 +66,8 @@ class StageController {
     }
 
     def edit(Stage stage) {
-        respond stage, model: [layers: Layer.list()]
+        println params
+        respond stage, model: [layers: Layer.list(), tab: params.tab]
     }
 
     @Transactional
@@ -87,8 +88,9 @@ class StageController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'stage.label', default: 'Stage'), stage.id])
-                redirect stage
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'stage.label', default: 'Stage'), stage.title])
+                //redirect stage
+                redirect controller:"stage", action:"edit", id: stage.id
             }
             '*'{ respond stage, [status: OK] }
         }
@@ -96,6 +98,8 @@ class StageController {
 
     @Transactional
     def delete(Stage stage) {
+
+        Map map = stage.map
 
         if (stage == null) {
             transactionStatus.setRollbackOnly()
@@ -107,8 +111,9 @@ class StageController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'stage.label', default: 'Stage'), stage.id])
-                redirect action:"index", method:"GET"
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'stage.label', default: 'Stage'), stage.title])
+                //redirect action:"index", method:"GET"
+                redirect controller:"map", action:"stages", id:map.id
             }
             '*'{ render status: NO_CONTENT }
         }

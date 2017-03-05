@@ -103,3 +103,13 @@ ul.sortable li.placeholder:before {
 .navbar-fixed-top .navbar-nav > li > a {
     color: #98978b;
 }
+
+.no-padding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.small-padding {
+   padding: 2px !important;
+   margin: 2px !important;
+}

@@ -39,13 +39,6 @@
                             <g:field type="number" class="form-control" name="sortOrder" placeholder="Sort Order" required="" />
                         </div>
                         <div class="form-group">
-                            <label for="layer">Layer</label>
-                            <g:select id="layer" name='layer'
-                                      noSelection="${['null':'Select One...']}"
-                                      from='${layers}' value="${map.layer?.id}"
-                                      optionKey="id" optionValue="name" class="form-control" ></g:select>
-                        </div>
-                        <div class="form-group">
                             <label for="title">Latitude</label>
                             <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Latitude">
                         </div>

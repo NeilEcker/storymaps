@@ -2,7 +2,7 @@ package storymap
 
 import grails.plugin.springsecurity.oauth2.exception.OAuth2Exception
 import grails.plugin.springsecurity.oauth2.SpringSecurityOAuth2Controller
-import grails.plugin.springsecurity.oauth2.token.OAuth2SpringToken;
+import grails.plugin.springsecurity.oauth2.token.OAuth2SpringToken
 import grails.converters.JSON
 
 class StorymapOAuth2Controller extends SpringSecurityOAuth2Controller {

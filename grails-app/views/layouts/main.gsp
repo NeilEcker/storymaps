@@ -60,7 +60,7 @@
                             <g:link controller="storymapOAuth2" action="login">Login</g:link>
                         </sec:ifNotLoggedIn>
                         <sec:ifLoggedIn>
-                            <g:link href="#"><sec:loggedInUserInfo field='username'/></g:link>
+                            <g:link href="#"><span class="glyphicon glyphicon-user"></span> <sec:loggedInUserInfo field='username'/></g:link>
                         </sec:ifLoggedIn>
                     </li>
                 </ul>

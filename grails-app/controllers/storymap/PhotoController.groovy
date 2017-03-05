@@ -69,7 +69,7 @@ class PhotoController {
             stage.photos.add(photo)
             stage.save(flush: true)
             flash.message = "Added Photo"
-            redirect controller:"stage", action:"addPhotos", id: params.stageId
+            redirect controller:"stage", action:"edit", id: params.stageId, params: [tab: "photos"]
         }
         else if (params.mapId) {
             //Get Map
@@ -141,7 +141,7 @@ class PhotoController {
         //photo.delete flush:true
 
         flash.message = message(code: 'default.deleted.message', args: [message(code: 'photo.label', default: 'Photo'), photo.filename])
-        redirect controller:"stage", action:"addPhotos", id: stage.id
+        redirect controller:"stage", action:"edit", id: stage.id, params: [tab: "photos"]
     }
 
     protected void notFound() {

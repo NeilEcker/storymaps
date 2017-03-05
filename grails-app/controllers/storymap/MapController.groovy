@@ -59,6 +59,11 @@ class MapController {
         respond new Map(params), model: [layers: Layer.list()]
     }
 
+    def createStage(Map map) {
+        new Stage(title: "Untitled Stage", latitude: 0, longitude: 0, zoom: 4, sortOrder: 1, content: 'Enter content here', map: map).save(failOnError: true)
+        redirect action: 'stages', id: map.id
+    }
+
     @Transactional
     def save(Map map) {
 
