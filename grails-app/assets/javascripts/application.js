@@ -9,6 +9,7 @@
 //= require webjars/bootswatch-sandstone/3.3.5+4/js/bootstrap.min.js
 //= require webjars/underscorejs/1.8.3/underscore-min.js
 //= require webjars/jquery-sortable/0.9.13/js/jquery-sortable.min.js
+//= require webjars/slick/1.6.0/slick.js
 // require webjars/leaflet/1.0.2/dist/leaflet.js
 // require webjars/ekko-lightbox/4.0.2/dist/ekko-lightbox.min.js
 //= require storymap.js

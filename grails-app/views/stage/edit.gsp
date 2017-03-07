@@ -14,16 +14,17 @@
         <div id="edit-stage" class="container-fluid">
 
             <ol class="breadcrumb">
+                <li><g:link controller="map" action="index">Map List</g:link></li>
                 <li><g:link controller="map" action="show" id="${stage.map.id}">${stage.map.title}</g:link></li>
-                <li><g:link controller="stage" action="show" id="${stage.id}">${stage.title}</g:link></li>
-                <li>Edit</li>
+                <li><g:link controller="map" action="stages" id="${stage.map.id}">Stages</g:link></li>
+                <li>Edit ${stage}</li>
             </ol>
 
             <g:if test="${flash.message}">
                 <div class="alert alert-danger" role="alert">${flash.message}</div>
             </g:if>
 
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <ul class="nav nav-pills nav-stacked" role="tablist" data-tabs="tabs">
 
                     <li role="presentation" ${!tab ? 'class=active' : ''}><a href="#locationTab" aria-controls="locationTab" role="tab" data-toggle="tab">Location</a></li>
@@ -32,7 +33,7 @@
                 </ul>
             </div>
 
-            <div class="col-md-9">
+            <div class="col-md-10">
 
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade ${!tab ? 'in active' : ''}" id="locationTab">

@@ -22,7 +22,6 @@
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                         <li><g:link action="edit" id="${map.id}">Edit</g:link></li>
                                         <li><g:link action="stages" id="${map.id}">Stages</g:link></li>
-                                        <li><g:link action="newStage" id="${map.id}">Stages</g:link></li>
                                     </ul>
                                 </div>
                             </g:if>
@@ -50,17 +49,20 @@
                             <div class="panel-body">
                                 <section data-place="${stage.title.replaceAll('\\s','')}">
 
-                                    ${raw(stage.content)}
+                                    <div class="col-md-12">
+                                        ${raw(stage.content)}
 
-                                    <div class="row">
 
-                                        <g:each in="${stage.photos}" var="photo">
-                                            <div class="col-lg-3 col-md-4 col-xs-6 no-padding">
-                                                <a href="/photo/getWebPhoto/${photo.id}" data-type="image" data-title="${photo.description}" data-toggle="lightbox" data-gallery="example-gallery">
-                                                    <img src="/photo/getThumbnail/${photo.id}" class="img-responsive center-block">
-                                                </a>
-                                            </div>
-                                        </g:each>
+                                        <div class="photos">
+                                            <g:each in="${stage.photos}" var="photo">
+                                                <div class="photo-thumbnail-div">
+                                                    <a href="/photo/getWebPhoto/${photo.id}" data-type="image" data-title="${photo.description}" data-toggle="lightbox" data-gallery="example-gallery">
+                                                        <img src="/photo/getThumbnail/${photo.id}" class="photo-thumbnail object-fit_fill">
+                                                    </a>
+                                                </div>
+                                            </g:each>
+                                        </div>
+
                                     </div>
                                 </section>
                             </div>
@@ -81,6 +83,12 @@
                 $(this).ekkoLightbox({
                     left_arrow_class: '.glyphicon .glyphicon-chevron-left',
                 });
+            });
+
+            $('.photos').slick({
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 3
             });
 
             var layers = {

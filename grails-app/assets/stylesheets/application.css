@@ -9,6 +9,8 @@
 *
 *= require webjars/bootswatch-sandstone/3.3.5+4/css/bootstrap.min.css
 *= require webjars/jquery-sortable/0.9.13/css/jquery-sortable.css
+*= require webjars/slick/1.6.0/slick.css
+*= require webjars/slick/1.6.0/slick-theme.css
 * require webjars/leaflet/1.0.2/dist/leaflet.css
 * require webjars/ekko-lightbox/4.0.2/dist/ekko-lightbox.min.css
 *= require style

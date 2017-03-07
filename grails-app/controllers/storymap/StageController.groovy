@@ -62,7 +62,8 @@ class StageController {
         }
 
         flash.message = "Set Default Map Photo"
-        redirect action: "addPhotos", id: stage.id
+        //redirect action: "addPhotos", id: stage.id
+        redirect action:"edit", id: stage.id, params: [tab: "photos"]
     }
 
     def edit(Stage stage) {

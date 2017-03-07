@@ -43,7 +43,11 @@
 }
 
 .viewing {
-    background: #eee;
+    background-image: url('/assets/flag_map_green.png');
+    background-size: 40px 40px;
+    background-position: right top;
+    background-repeat: no-repeat;
+    z-index: -1;
 }
 
 section {
@@ -112,4 +116,15 @@ ul.sortable li.placeholder:before {
 .small-padding {
    padding: 2px !important;
    margin: 2px !important;
+}
+
+.photo-thumbnail-div { height: 180px; }
+.photo-thumbnail { height: 180px; background-color: #ddd; overflow: none; }
+.photo-thumbnail[class] { width: 98% }
+
+.object-fit_fill { object-fit: fill }
+.object-fit_cover { object-fit: cover }
+
+.slick-prev:before, .slick-next:before{
+    color:red;
 }

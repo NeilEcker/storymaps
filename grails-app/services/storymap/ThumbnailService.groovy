@@ -11,7 +11,7 @@ import grails.transaction.Transactional
 class ThumbnailService {
 
     def createThumbnail(byte[] imageBytes, String format) {
-        resizeImage(imageBytes, format, 160, 120)
+        resizeImage(imageBytes, format, 240, 160)
     }
 
     def createWebPhoto(byte[] imageBytes, String format) {
