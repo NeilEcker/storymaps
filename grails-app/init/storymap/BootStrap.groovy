@@ -4,12 +4,7 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
-        def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
-
-        /*def admin = new UserAccount(username: "neil.ecker@gmail.com", password: "sw!ssCh33se", enabled: true).save(flush:true)
-        new UserRole(userAccount: admin, role: adminRole).save(flush:true)
-        new UserRole(userAccount: admin, role: userRole).save(flush:true)*/
+        if (Role.list().size == 0) { createRoles() }
 
         if (Map.list().size == 0) {
             addDefaultLayers()
@@ -17,14 +12,21 @@ class BootStrap {
         }
     }
 
+    def createRoles() {
+        def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
+        def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
+    }
+
     def addDemoData() {
+        def demoUser = new UserAccount(username: "demouser@storymaps.zapto.org", password: "sw!ssCh33se", enabled: true).save(flush:true)
+
         String testContent = '''
             <p>Etiam nec vulputate tellus. Mauris varius aliquam congue. Etiam ac dolor sed felis pellentesque iaculis. In hac habitasse platea dictumst. Vivamus bibendum, nisi id tempor fringilla, augue velit posuere eros, vel mollis massa nisl eget mi. In sit amet libero quis ipsum bibendum pulvinar. In hac habitasse platea dictumst. Vestibulum congue justo erat, a vulputate nibh aliquet vitae. Morbi accumsan lobortis diam, ut aliquet est venenatis sit amet.</p>
             <p>Vestibulum eleifend varius nisi vitae mattis. Proin egestas diam eu justo porta feugiat. Phasellus nec nisl congue elit mattis facilisis. Sed semper lorem in elementum facilisis. Mauris malesuada at felis sit amet commodo. Cras egestas nec metus nec aliquet. Suspendisse at feugiat elit, at tincidunt odio. Etiam ac magna justo. Nunc eget congue augue. Mauris eget arcu non purus rutrum accumsan vitae condimentum ligula. Sed blandit interdum neque, in adipiscing ligula placerat vel.</p>
             <p>In at molestie nulla, at molestie nulla. Donec ut vehicula velit, sed scelerisque sapien. Proin sodales laoreet dapibus. Phasellus in tristique orci. Morbi iaculis vestibulum magna, et fermentum lacus ornare non. Quisque malesuada et dolor ac mollis. Duis egestas ullamcorper dui, vel rhoncus nisl congue ut. Nunc feugiat velit at congue congue. Suspendisse sapien ligula, gravida non rhoncus ut, porta ut ipsum. In urna orci, scelerisque non sem et, condimentum feugiat lorem. Nam nec nunc nisl.</p>
         '''
 
-        def map1 = new Map(title: "Demo Map", overview: testContent, isPublic: true).save(failOnError: true)
+        def map1 = new Map(title: "Demo Map", overview: testContent, isPublic: true, creator: demoUser).save(failOnError: true)
         new Stage(title: "First Stage", latitude: 44, longitude: -80.5, zoom: 12, content: testContent, sortOrder: 1, map: map1).save(failOnError: true)
         new Stage(title: "Second Stage", latitude: 44.2, longitude: -80.8, zoom: 12, content: testContent, sortOrder: 2, map: map1).save(failOnError: true)
         new Stage(title: "Third Stage", latitude: 44.5, longitude: -81, zoom: 12, content: testContent, sortOrder: 3, map: map1).save(failOnError: true)

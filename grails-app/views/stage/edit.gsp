@@ -20,10 +20,6 @@
                 <li>Edit ${stage}</li>
             </ol>
 
-            <g:if test="${flash.message}">
-                <div class="alert alert-danger" role="alert">${flash.message}</div>
-            </g:if>
-
             <div class="col-md-2">
                 <ul class="nav nav-pills nav-stacked" role="tablist" data-tabs="tabs">
 
@@ -31,9 +27,14 @@
                     <li role="presentation" ${tab == "photos" ? 'class=active' : ''}><a href="#photosTab" aria-controls="photosTab" role="tab" data-toggle="tab">Photos</a></li>
                     <li role="presentation" ${tab == "content" ? 'class=active' : ''}><a href="#contentTab" aria-controls="contentTab" role="tab" data-toggle="tab">Content</a></li>
                 </ul>
+
             </div>
 
             <div class="col-md-10">
+
+                <g:if test="${flash.message}">
+                    <div class="alert alert-danger" role="alert">${flash.message}</div>
+                </g:if>
 
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade ${!tab ? 'in active' : ''}" id="locationTab">

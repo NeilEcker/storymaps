@@ -89,9 +89,9 @@ class StageController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'stage.label', default: 'Stage'), stage.title])
+                flash.message = "Content updated for ${stage.title}"
                 //redirect stage
-                redirect controller:"stage", action:"edit", id: stage.id
+                redirect controller:"stage", action:"edit", id: stage.id, params: [tab: "content"]
             }
             '*'{ respond stage, [status: OK] }
         }

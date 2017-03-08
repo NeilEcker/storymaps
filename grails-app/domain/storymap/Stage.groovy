@@ -16,7 +16,7 @@ class Stage {
     static hasMany = [photos: Photo]
 
     static constraints = {
-        content type: 'text'
+        content type: 'text', nullable: true
         layer blank:true, nullable:true
     }
 

@@ -31,7 +31,7 @@
                             <input type="text" class="form-control" id="title" name="title" placeholder="Title">
                         </div>
                         <div class="form-group">
-                            <label for="layer">Default Layer</label>
+                            <label for="layer">Map Layer</label>
                             <g:select id="layer" name='layer'
                                       noSelection="${['null':'Select One...']}"
                                       from='${layers}'
