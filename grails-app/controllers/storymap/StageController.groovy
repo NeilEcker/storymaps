@@ -67,7 +67,6 @@ class StageController {
     }
 
     def edit(Stage stage) {
-        println params
         respond stage, model: [layers: Layer.list(), tab: params.tab]
     }
 
@@ -89,9 +88,9 @@ class StageController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = "Content updated for ${stage.title}"
+                flash.message = "${stage.title} Updated"
                 //redirect stage
-                redirect controller:"stage", action:"edit", id: stage.id, params: [tab: "content"]
+                redirect controller:"stage", action:"edit", id: stage.id, params: [tab: params.currentTab]
             }
             '*'{ respond stage, [status: OK] }
         }

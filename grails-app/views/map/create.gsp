@@ -7,7 +7,7 @@
         <ckeditor:resources/>
     </head>
     <body>
-        <div id="create-map" class="container">
+        <div id="create-map" class="container-fluid">
             <ol class="breadcrumb">
                 <li><g:link controller="map" action="index">Map List</g:link></li>
                 <li>Create New Map</li>
@@ -25,9 +25,9 @@
             </g:hasErrors>
             <g:form action="save">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="title">Title</label>
+                            <label for="title">Storymap Title</label>
                             <input type="text" class="form-control" id="title" name="title" placeholder="Title">
                         </div>
                         <div class="form-group">
@@ -39,22 +39,30 @@
                         </div>
                         <div class="form-group">
                             <label for="isPublic">Public</label>
-                            <g:checkBox id="isPublic" name="isPublic" value="false" />
+                            <g:checkBox id="isPublic" name="isPublic" />
+                            <p class="help-block">Enable to allow anyone to access this map.</p>
+                        </div>
+                        <fieldset class="buttons">
+                            <g:submitButton name="create" class="btn btn-primary center-block" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+                        </fieldset>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="content">Overview</label>
+                            <ckeditor:config var="toolbar_Mytoolbar">
+                                [
+                                [ 'Source', '-', 'Bold', 'Italic', 'Link', 'Unlink'],
+                                [ 'Table', 'HorizontalRule']
+                                ]
+                            </ckeditor:config>
+                            <ckeditor:editor id="overview" name="overview" height="240px" width="100%" toolbar="Mytoolbar">
+                                ${map.overview}
+                            </ckeditor:editor>
+                            <p class="help-block">Description of this storymap.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="content">Overview</label>
-                        <ckeditor:editor id="overview" name="overview" height="300px" width="100%" toolbar="Basic">
-                            ${map.overview}
-                        </ckeditor:editor>
-                    </div>
-                    <fieldset class="buttons">
-                        <g:submitButton name="create" class="btn btn-primary" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-                    </fieldset>
-                </div>
             </g:form>
         </div>
 

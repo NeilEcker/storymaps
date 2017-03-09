@@ -132,9 +132,17 @@
 
                 <div role="tabpanel" class="tab-pane fade ${tab == "content" ? 'in active' : ''}" id="contentTab">
                     <g:form resource="${this.stage}" method="PUT">
+                        <g:hiddenField name="version" value="${this.stage?.version}" />
+                        <g:hiddenField name="currentTab" value="content" />
                         <div class="form-group">
                             <label for="content">Content</label>
-                            <ckeditor:editor id="content" name="content" height="300px" width="100%" toolbar="Basic">
+                            <ckeditor:config var="toolbar_Mytoolbar">
+                                [
+                                [ 'Source', '-', 'Bold', 'Italic', 'Link', 'Unlink'],
+                                [ 'Table', 'HorizontalRule']
+                                ]
+                            </ckeditor:config>
+                            <ckeditor:editor id="content" name="content" height="240px" width="100%" toolbar="Mytoolbar">
                                 ${stage.content}
                             </ckeditor:editor>
                         </div>
