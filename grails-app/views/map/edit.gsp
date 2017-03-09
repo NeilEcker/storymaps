@@ -55,7 +55,7 @@
                         </div>
                         <g:if test="${map.photoId}">
                             <div class="form-group">
-                                <label for="currentPhoto">Current photo</label>
+                                <label for="currentPhoto">Cover Photo</label>
                                 <img id="currentPhoto" src="/photo/getPhoto/${map.photoId}" height="50" />
                             </div>
                         </g:if>

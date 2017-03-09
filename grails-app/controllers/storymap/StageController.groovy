@@ -10,24 +10,6 @@ class StageController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Stage.list(params), model:[stageCount: Stage.count()]
-    }
-
-    def show(Stage stage) {
-        respond stage
-    }
-
-    def addPhotos(Stage stage) {
-        respond stage
-    }
-
-    def create() {
-        def map = Map.get(params.mapId)
-        respond new Stage(params), model: [layers: Layer.list(), map: map]
-    }
-
     @Transactional
     def save(Stage stage) {
         if (stage == null) {
@@ -128,4 +110,5 @@ class StageController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
 }
