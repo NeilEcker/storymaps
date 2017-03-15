@@ -29,7 +29,9 @@
                         </div>
                         <div class="panel-body">
                             <section id="mainSection" data-place="overview" data-titles="${titles}" data-coordinates="${coordinates}">
-                                ${raw(map.overview)}
+                                <div style="margin-right: 20px;">
+                                    ${raw(map.overview)}
+                                </div>
                             </section>
                         </div>
                     </div>
@@ -52,12 +54,11 @@
                                     <div class="col-md-12">
                                         ${raw(stage.content)}
 
-
                                         <div class="photos">
                                             <g:each in="${stage.photos}" var="photo">
                                                 <div class="photo-thumbnail-div">
                                                     <a href="/photo/getWebPhoto/${photo.id}" data-type="image" data-title="${photo.description}" data-toggle="lightbox" data-gallery="example-gallery">
-                                                        <img src="/photo/getThumbnail/${photo.id}" class="photo-thumbnail object-fit_fill">
+                                                        <img src="/photo/getThumbnail/${photo.id}" class="photo-thumbnail object-fit_cover">
                                                     </a>
                                                 </div>
                                             </g:each>

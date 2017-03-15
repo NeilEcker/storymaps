@@ -48,7 +48,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Layers <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><g:link controller="layer" action="index">List</g:link></li>
-                            <li><g:link controller="layer" action="create">Create</g:link></li>
+                            <!--<li><g:link controller="layer" action="create">Create</g:link></li>-->
                         </ul>
                     </li>
 

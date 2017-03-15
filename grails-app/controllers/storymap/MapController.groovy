@@ -60,7 +60,7 @@ class MapController {
     }
 
     def createStage(Map map) {
-        new Stage(title: "Untitled Stage", latitude: 40, longitude: -40, zoom: 2, sortOrder: 1, map: map).save(failOnError: true)
+        new Stage(title: "Untitled Stage", latitude: 40, longitude: -40, zoom: 2, sortOrder: 10, map: map).save(flush: true, failOnError: true)
         redirect action: 'stages', id: map.id
     }
 

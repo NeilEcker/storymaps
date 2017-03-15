@@ -17,7 +17,7 @@
                     <div class="media-left">
                         <g:link action="show" id="${map.id}" class="list-group-item">
                             <g:if test="${map.photoId}">
-                                <img class="media-object" src="/photo/getThumbnail/${map.photoId}" alt="${map.title}" height="96" />
+                                <img class="media-object" src="/photo/getThumbnail/${map.photoId}" alt="${map.title}" style="width: 100px;" />
                             </g:if>
                             <g:else>
                                 ${map.title}

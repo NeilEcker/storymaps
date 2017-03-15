@@ -21,7 +21,7 @@
                 <tbody>
                     <g:each in="${layerList}" var="${layer}">
                         <tr>
-                            <td><g:link action="show" id="${layer.id}">${layer.name}</g:link></td>
+                            <td><!--<g:link action="show" id="${layer.id}">${layer.name}</g:link>-->${layer.name}</td>
                             <td>${layer.type}</td>
                             <td>${raw(layer.attribution)}</td>
                         </tr>
