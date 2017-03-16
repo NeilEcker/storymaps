@@ -86,11 +86,20 @@
                 });
             });
 
-            $('.photos').slick({
+            $(".photos").each(function(){
+              var $this = $(this);
+              var slick = $this.slick({
                 infinite: true,
                 slidesToShow: 3,
                 slidesToScroll: 3
+              });
             });
+
+            /*$('.photos').slick({
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 3
+            });*/
 
             var layers = {
             <g:each in="${layers}" var="layer">

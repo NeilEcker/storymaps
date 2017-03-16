@@ -84,6 +84,8 @@ class MapController {
 
         map.save flush:true
 
+        new Stage(title: "Untitled Stage", latitude: 40, longitude: -40, zoom: 2, sortOrder: 10, map: map).save(flush: true, failOnError: true)
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'map.label', default: 'Map'), map.id])
